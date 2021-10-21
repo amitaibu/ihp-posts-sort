@@ -14,18 +14,15 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
 <head>
     {metaTags}
 
-    <link rel="stylesheet" href="/vendor/bootstrap.min.css"/>
     <link rel="stylesheet" href="/app.css"/>
 
     {scripts}
 
-    <title>App</title>
+    <title>Posts Sortable</title>
 </head>
-<body>
-    <div class="container mt-4">
+<body class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-12">
         {renderFlashMessages}
         {inner}
-    </div>
 </body>
 |]
 
@@ -36,8 +33,6 @@ scripts = do
         <script src="/vendor/morphdom-umd.min.js"></script>
         <script src="/vendor/jquery-3.6.0.slim.min.js"></script>
         <script src="/vendor/timeago.js"></script>
-        <script src="/vendor/popper.min.js"></script>
-        <script src="/vendor/bootstrap.min.js"></script>
         <script src="/helpers.js"></script>
     |]
     when isProduction [hsx|

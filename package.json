@@ -1,0 +1,17 @@
+{
+  "name": "ihp-posts-sort",
+  "version": "1.0.0",
+  "description": "Example project showing the project structure of a simple blog app built with [IHP](https://github.com/digitallyinduced/ihp) as described in the Section [Your First Project](https://ihp.digitallyinduced.com/Guide/your-first-project.html).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/forms": "^0.3.4",
+    "autoprefixer": "^10.3.7",
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.17"
+  }
+}
