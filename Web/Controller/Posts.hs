@@ -10,7 +10,7 @@ import qualified Text.MMark as MMark
 instance Controller PostsController where
     action PostsAction = do
         posts <- query @Post
-            |> orderByDesc #createdAt
+            |> orderBy #weight
             |> fetch
         render IndexView { .. }
 
@@ -40,11 +40,25 @@ instance Controller PostsController where
                     redirectTo EditPostAction { .. }
 
     action CreatePostAction = do
+        highestWeightPost <- query @Post
+            |> orderByDesc #weight
+            |> limit 1
+            |> fetchOneOrNothing
+
+
+
+        let highestWeight =
+                case highestWeightPost of
+                    Nothing -> 0
+                    Just highestWeight -> get #weight highestWeight
+
+
         let post = newRecord @Post
         post
             |> buildPost
+            |> set #weight (highestWeight + 1)
             |> ifValid \case
-                Left post -> render NewView { .. } 
+                Left post -> render NewView { .. }
                 Right post -> do
                     post <- post |> createRecord
                     setSuccessMessage "Post created"
