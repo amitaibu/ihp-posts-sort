@@ -7,21 +7,32 @@ instance View IndexView where
     html IndexView { .. } = [hsx|
         <div><a href={pathTo NewPostAction} class="inline-block btn btn-primary">+ New</a></div>
 
-        <form method="POST" action={SortPostsAction}>
-            <ul class="list-group my-8 px-4 py-6 border border-gray-500" id="sortable">
-                {forM_ posts renderPost}
-            </ul>
-
-            <input type="submit" class="btn btn-primary" value="Re-order"/>
-
-        </form>
-
-        <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
-        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-        <script src={assetPath "/postsSortable.js"}></script>
-
+        {renderPosts posts}
     |]
 
+
+renderPosts posts =
+    if null posts
+        then mempty
+        else [hsx|
+            <form method="POST" action={SortPostsAction}>
+                <ul class="list-group my-8 px-4 py-6 border border-gray-500" id="sortable">
+                    {forM_ posts renderPost}
+                </ul>
+
+                {button}
+
+            </form>
+        |]
+            where button =
+                    if length posts > 1
+                        then [hsx|
+                            <input type="submit" class="btn btn-primary" value="Re-order"/>
+                            <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
+                            <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+                            <script src={assetPath "/postsSortable.js"}></script>
+                        |]
+                        else [hsx|<div class="inline-block btn bg-gray-400">Re-order</div>|]
 
 renderPost post = [hsx|
     <li class="list-group-item flex flex-row space-x-4 border-b border-gray-200 py-6 px-2 hover:bg-green-50">

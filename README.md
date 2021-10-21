@@ -7,6 +7,8 @@ After following the steps to install [IHP](https://ihp.digitallyinduced.com/Guid
 ./start
 ```
 
+On a different tab execute `make tailwind-dev`
+
 This will automatically deal with installing all dependencies, setting up the development database and importing fixtures.
 
 ## Auth
