@@ -6,9 +6,12 @@ data IndexView = IndexView { posts :: [Post] }
 instance View IndexView where
     html IndexView { .. } = [hsx|
         <div><a href={pathTo NewPostAction} class="inline-block btn btn-primary">+ New</a></div>
-        <ul class="list-group my-8 px-4 py-6 border border-gray-500" id="sortable">
-            {forM_ posts renderPost}
-        </ul>
+
+        <form method="POST" action={SortPostsAction}>
+            <ul class="list-group my-8 px-4 py-6 border border-gray-500" id="sortable">
+                {forM_ posts renderPost}
+            </ul>
+        </form>
 
         <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -28,5 +31,7 @@ renderPost post = [hsx|
         <div><a href={ShowPostAction (get #id post)}>Show</a></div>
         <div><a href={EditPostAction (get #id post)} class="text-muted">edit</a></div>
         <div><a href={DeletePostAction (get #id post)} class="js-delete text-muted">Delete</a></div>
+
+        <input type="hidden" name="post" value={show $ get #id post} />
     </li>
 |]

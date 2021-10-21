@@ -70,6 +70,9 @@ instance Controller PostsController where
         setSuccessMessage "Post deleted"
         redirectTo PostsAction
 
+    action SortPostsAction = do
+        redirectTo PostsAction
+
 buildPost post = post
     |> fill @["title","body"]
     |> validateField #title nonEmpty
