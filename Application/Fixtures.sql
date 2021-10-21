@@ -19,7 +19,7 @@ ALTER TABLE public.posts DISABLE TRIGGER ALL;
 INSERT INTO public.posts (id, title, body, created_at, weight) VALUES ('4ef48ade-e7f0-4afb-b4d9-5d4d1f7b9b86', 'Hello World!', 'Lorem ipsum *dolor sit amet*, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam. **This is the IHP Blog Demo App**.
 
 Lorem ipsum *dolor sit amet*, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam', '2020-06-07 14:10:04.340407+03', 0);
-INSERT INTO public.posts (id, title, body, created_at, weight) VALUES ('bf9a4977-dea6-4e9c-97ef-649a723c4d56', 'Hi there', 'Very nice', '2021-10-21 21:21:30.669849+03', 1);
+INSERT INTO public.posts (id, title, body, created_at, weight) VALUES ('bf9a4977-dea6-4e9c-97ef-649a723c4d56', 'Hi there, 2nd one', 'Very nice', '2021-10-21 21:21:30.669849+03', 1);
 INSERT INTO public.posts (id, title, body, created_at, weight) VALUES ('a234ce3e-1a9a-4043-8627-c739a1f433a2', '3rd one', '123', '2021-10-21 21:21:35.605099+03', 2);
 
 
