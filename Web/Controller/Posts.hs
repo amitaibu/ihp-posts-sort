@@ -70,8 +70,26 @@ instance Controller PostsController where
         setSuccessMessage "Post deleted"
         redirectTo PostsAction
 
-    action SortPostsAction = do
-        redirectTo PostsAction
+    action SortPostsAction =
+        let
+            params = paramListOrNothing @UUID "postId"
+        in
+        case catMaybes params of
+            [] -> do
+                setSuccessMessage $ "No posts"
+                redirectTo PostsAction
+            uuids -> do
+                forEachWithIndex uuids (\(weight, uuid) -> do
+                        let postId = (Id uuid) :: Id Post
+                        post <- fetch postId
+                        post <- post
+                            |> set #weight weight
+                            |> updateRecord
+                        pure ()
+                    )
+
+                setSuccessMessage $ "Re-ordered posts"
+                redirectTo PostsAction
 
 buildPost post = post
     |> fill @["title","body"]

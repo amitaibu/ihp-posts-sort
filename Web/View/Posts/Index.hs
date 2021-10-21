@@ -11,6 +11,9 @@ instance View IndexView where
             <ul class="list-group my-8 px-4 py-6 border border-gray-500" id="sortable">
                 {forM_ posts renderPost}
             </ul>
+
+            <input type="submit" class="btn btn-primary" value="Re-order"/>
+
         </form>
 
         <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
@@ -32,6 +35,6 @@ renderPost post = [hsx|
         <div><a href={EditPostAction (get #id post)} class="text-muted">edit</a></div>
         <div><a href={DeletePostAction (get #id post)} class="js-delete text-muted">Delete</a></div>
 
-        <input type="hidden" name="post" value={show $ get #id post} />
+        <input type="hidden" name="postId" value={show $ get #id post} />
     </li>
 |]
