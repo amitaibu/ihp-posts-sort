@@ -82,10 +82,17 @@ instance Controller PostsController where
                 forEachWithIndex uuids (\(weight, uuid) -> do
                         let postId = (Id uuid) :: Id Post
                         post <- fetch postId
-                        post <- post
-                            |> set #weight weight
-                            |> updateRecord
-                        pure ()
+
+                        if get #weight post /= weight
+                            then do
+                                -- Set new weight.
+                                post <- post
+                                    |> set #weight weight
+                                    |> updateRecord
+                                pure ()
+                            else
+                                -- Weight hasn't changed.
+                                pure ()
                     )
 
                 setSuccessMessage $ "Re-ordered posts"
